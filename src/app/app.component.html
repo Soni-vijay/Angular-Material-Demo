@@ -1,0 +1,81 @@
+<mat-sidenav-container [class.m2app-dark]="isDarkTheme">
+
+  <mat-sidenav #sidenav mode="over" class="app-sidenav" color="primary">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span>Account</span>
+        <span class="app-toolbar-filler"></span>
+        <mat-icon class="example-icon">account_circle</mat-icon>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <button mat-raised-button color="accent" class="app-sidebar-button">
+          <mat-icon class="example-icon">verified_user</mat-icon>
+          Login
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-sidenav>
+
+  <mat-toolbar color="primary">
+    <button mat-button class="app-menu-button" (click)="sidenav.toggle()">
+      <i class="material-icons">menu</i>
+    </button>
+    <span class="title">Demo</span>
+  </mat-toolbar>
+
+  <div class="app-content">
+    <!-- Material Select -->
+    <form [formGroup]="addressForm">
+      <mat-card>
+        <mat-card-content>
+          <h2 class="example-h2">Address Form</h2>
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="countryCtl" name="countryCtl" (selectionChange)="onCountryChange()" required>
+              <mat-option>-Select Country-</mat-option>
+              <mat-option *ngFor="let country of countries" [value]="country.id">
+                {{country.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="countryCtl.errors?.required">Please choose an Country</mat-error>
+            <mat-hint>{{countryCtl.value?.name}}</mat-hint>
+          </mat-form-field>
+          <!-- state -->
+          <mat-form-field appearance="fill">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="stateCtl" name="stateCtl" required (selectionChange)="onStateChange()">
+              <mat-option>-Select state-</mat-option>
+              <mat-option *ngFor="let state of states" [value]="state.id">
+                {{state.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="stateCtl.errors?.required">Please choose an Country</mat-error>
+            <mat-hint>{{countryCtl.value?.name}}</mat-hint>
+          </mat-form-field>
+          <!-- district -->
+          <mat-form-field appearance="fill">
+            <mat-label>District</mat-label>
+            <mat-select formControlName="districtCtl" name="districtCtl">
+              <mat-option>-Select District-</mat-option>
+              <mat-option *ngFor="let district of districts" [value]="district.id">
+                {{district.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="districtCtl.errors?.required">Please choose an Country</mat-error>
+            <mat-hint>{{districtCtl.value?.name}}</mat-hint>
+          </mat-form-field>
+          <!-- <p> Selected value: {{selectedValue}} </p> -->
+
+        </mat-card-content>
+      </mat-card>
+    </form>
+    <!-- /Material Select -->
+
+    <!-- Material Fab-->
+    <button mat-fab class="app-fab">
+      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+    </button>
+    <!-- /Material Fab-->
+  </div>
+</mat-sidenav-container>
